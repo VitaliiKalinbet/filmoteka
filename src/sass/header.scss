@@ -39,11 +39,16 @@
 }
 
 .header__navListItem {
-  text-transform: capitalize;
   font-family: "Roboto", sans-serif;
   font-size: 16px;
   color: #372c48;
   font-weight: 400;
+  cursor: pointer;
+  border-bottom: 3px solid #77c1bb;
+}
+
+.header__navListItem:hover {
+  border-bottom: 3px solid #267c75;
 }
 
 .header__navListItem:first-child {

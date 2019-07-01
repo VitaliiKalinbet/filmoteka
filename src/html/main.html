@@ -1,19 +1,20 @@
 <main class="main">
   <form class="main__form" action="">
-    <input class="main__input" type="text">
+    <input placeholder="Write a movie name and click Enter" class="main__input"
+      type="text">
   </form>
   <section class="main__sectionFilms">
-    <ul class="main__filmList">
-      <li>1й фильм</li>
+    <ul id="main__filmList" class="main__filmList">
+      <!-- <li class="main__filmListItem">1й фильм</li>
       <li>2й фильм</li>
       <li>3й фильм</li>
       <li>4й фильм</li>
-      <li>5й фильм</li>
+      <li>5й фильм</li> -->
     </ul>
-    <div class="main__plaginations">
-      <button class="main__backButton">назад</button>
-      <div class="main__plaginationPage">1</div>
-      <button class="main__backButton">вперед</button>
+    <div class="main__plaginationsContainer">
+      <button class="main__backButton">back</button>
+      <div class="main__plaginationPageNumber">1</div>
+      <button class="main__nextButton">next</button>
     </div>
   </section>
 </main>

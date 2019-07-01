@@ -1,11 +1,10 @@
 .footer {
-  background-color: #77c1bb;
+  background-color: $main;
   padding: 20px 0;
 }
 
 .footer__author {
   text-align: center;
-  text-transform: capitalize;
   font-family: "Roboto", sans-serif;
   font-size: 16px;
   color: #372c48;
