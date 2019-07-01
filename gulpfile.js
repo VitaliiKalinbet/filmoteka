@@ -92,7 +92,7 @@ function serve() {
   return server.init({
     server: 'build',
     notify: false,
-    open: false,
+    open: 'local',
     cors: true,
     ui: false,
     logPrefix: 'DevServer',
