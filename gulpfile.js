@@ -1,6 +1,12 @@
 'use strict';
 
-const { src, dest, series, parallel, watch } = require('gulp');
+const {
+  src,
+  dest,
+  series,
+  parallel,
+  watch
+} = require('gulp');
 const sass = require('gulp-sass');
 const postcss = require('gulp-postcss');
 const autoprefixer = require('autoprefixer');
@@ -22,7 +28,9 @@ const server = require('browser-sync').create();
 function html() {
   return src('src/*.html')
     .pipe(rigger())
-    .pipe(htmlmin({ collapseWhitespace: true }))
+    .pipe(htmlmin({
+      collapseWhitespace: true
+    }))
     .pipe(dest('build'));
 }
 
@@ -31,7 +39,10 @@ function styles() {
     .pipe(plumber())
     .pipe(
       stylelint({
-        reporters: [{ formatter: 'string', console: true }],
+        reporters: [{
+          formatter: 'string',
+          console: true
+        }],
       }),
     )
     .pipe(sass())
@@ -47,7 +58,7 @@ function styles() {
 function scripts() {
   return src('src/js/**/*.js')
     .pipe(plumber())
-    .pipe(babel())
+    // .pipe(babel())
     .pipe(concat('scripts.js'))
     .pipe(dest('build/js'))
     .pipe(uglify())
@@ -57,7 +68,9 @@ function scripts() {
 
 function sprite() {
   return src('src/images/icons/icon-*.svg')
-    .pipe(svgstore({ inlineSvg: true }))
+    .pipe(svgstore({
+      inlineSvg: true
+    }))
     .pipe(rename('sprite.svg'))
     .pipe(dest('build/images'));
 }
@@ -66,10 +79,18 @@ function images() {
   return src(['src/images/**/*.{png,jpg,jpeg,svg}', '!src/images/icons/**/*'])
     .pipe(
       imagemin([
-        imagemin.jpegtran({ progressive: true }),
-        imagemin.optipng({ optimizationLevel: 3 }),
+        imagemin.jpegtran({
+          progressive: true
+        }),
+        imagemin.optipng({
+          optimizationLevel: 3
+        }),
         imagemin.svgo({
-          plugins: [{ removeViewBox: false }, { cleanupIDs: false }],
+          plugins: [{
+            removeViewBox: false
+          }, {
+            cleanupIDs: false
+          }],
         }),
       ]),
     )

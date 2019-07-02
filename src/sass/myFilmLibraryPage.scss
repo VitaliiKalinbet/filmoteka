@@ -1,0 +1,23 @@
+.main__navigationLibrary {
+  list-style: none;
+  display: flex;
+}
+
+.main__navigationLibrary>li:first-child {
+  margin-right: 3rem;
+}
+
+.main__navigationLibraryButton {
+  border: none;
+  outline: none;
+  padding: 0.5rem;
+  background-color: $main;
+  cursor: pointer;
+  border-radius: 1rem;
+  color: white;
+  text-transform: uppercase;
+}
+
+.main__navigationLibraryButton:hover {
+  background-color: #40aaa1;
+}

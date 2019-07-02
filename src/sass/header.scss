@@ -38,7 +38,8 @@
   list-style: none;
 }
 
-.header__navListItem {
+.header__navListLink {
+  text-decoration: none;
   font-family: "Roboto", sans-serif;
   font-size: 16px;
   color: #372c48;
@@ -47,10 +48,10 @@
   border-bottom: 3px solid #77c1bb;
 }
 
-.header__navListItem:hover {
+.header__navListLink:hover {
   border-bottom: 3px solid #267c75;
 }
 
-.header__navListItem:first-child {
+.header__navListLink:first-child {
   margin-right: 1rem;
 }
