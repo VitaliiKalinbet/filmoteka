@@ -46,14 +46,17 @@ function createCardFunc(imgPath, filmTitle, movieId) {
 
   listItem.append(img, title);
 
-  listItem.addEventListener('click', () => activeDetailsPage(movieId));
+  listItem.addEventListener('click', () => activeDetailsPage(movieId, false));
   return listItem;
 };
 
-(async function startApp() {
-  await fetchPopularMoviesList();
-  await fetchGenres();
-})();
+// (async function startApp() {
+// await fetchPopularMoviesList();
+// await fetchGenres();
+// })();
+
+fetchPopularMoviesList();
+fetchGenres();
 
 const searchFilmForm = document.querySelector('#js-form');
 const searchFilmInput = document.querySelector('#js-input');
@@ -79,11 +82,9 @@ function fetchFilms() {
 }
 
 function serchFilm(event) {
-  if (searchFilmInput.value = "") return;
   event.preventDefault();
   inputValue = searchFilmInput.value;
   searchFilmForm.reset();
-  console.log(inputValue);
   fetchFilms();
 }
 

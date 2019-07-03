@@ -14,8 +14,10 @@
 }
 
 .main__input {
-  width: 20rem;
+  width: 16rem;
   padding: 0.5rem;
+  border-radius: 1rem;
+  outline: none;
 }
 
 .main__sectionFilms {
@@ -70,6 +72,7 @@
   width: 480px;
   height: 250px;
   cursor: pointer;
+  border-radius: 1rem;
 }
 
 .main__filmListItemImg {
@@ -80,6 +83,7 @@
   filter: alpha(opacity=95) black;
   -khtml-opacity: 0.95;
   background-color: #000;
+  border-radius: 1rem;
 }
 
 .main__filmListItemTitle {
@@ -87,4 +91,50 @@
   left: 10px;
   bottom: 10px;
   color: white;
+}
+
+@media (max-width: 1023px) {
+  .main {
+    width: 700px;
+    padding: 2rem 0;
+  }
+
+  .main__filmListItem {
+    width: 340px;
+    height: 177px;
+  }
+
+  .main__filmListItemImg {
+    width: 340px;
+    height: 177px;
+  }
+
+  .main__filmList {
+    margin-bottom: 1rem;
+  }
+
+  .main__form {
+    margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .main {
+    width: 300px;
+    padding: 1rem 0;
+  }
+
+  .main__filmListItem {
+    width: 300px;
+    height: 156px;
+  }
+
+  .main__filmListItemImg {
+    width: 300px;
+    height: 156px;
+  }
+
+  .main__filmList {
+    margin-bottom: 0;
+  }
 }

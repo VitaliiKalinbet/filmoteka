@@ -19,7 +19,7 @@ function createLibraryCardFunc(imgPath, filmTitle, movieId, voteAverage) {
 
   listItem.append(img, title, voteAverageH3);
 
-  listItem.addEventListener('click', () => activeDetailsPage(movieId));
+  listItem.addEventListener('click', () => activeDetailsPage(movieId, true));
   return listItem;
 };
 
@@ -33,6 +33,8 @@ function drawQueueFilmList() {
     libraryFilmList.innerHTML = "";
     libraryFilmList.append(fragment);
   }
+  queueListButton.classList.add('main__navigationLibraryButtonActive');
+  watchedListButton.classList.remove('main__navigationLibraryButtonActive');
 }
 
 function drawWatchedFilmList() {
@@ -45,4 +47,6 @@ function drawWatchedFilmList() {
     libraryFilmList.innerHTML = "";
     libraryFilmList.append(fragment);
   }
+  queueListButton.classList.remove('main__navigationLibraryButtonActive');
+  watchedListButton.classList.add('main__navigationLibraryButtonActive');
 }

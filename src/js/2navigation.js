@@ -27,6 +27,9 @@ function activeLibraryPage() {
   sectionDetailsPage.classList.add('main__hide');
   sectionLibraryPage.classList.remove('main__hide');
 
+  drawQueueFilmList();
+  queueListButton.classList.add('main__navigationLibraryButtonActive');
+
   queueListButton.addEventListener('click', drawQueueFilmList);
   watchedListButton.addEventListener('click', drawWatchedFilmList);
 
@@ -34,11 +37,16 @@ function activeLibraryPage() {
   addWatchedButton.removeEventListener('click', toggleToWatched);
 }
 
-function activeDetailsPage(movieId) {
+function activeDetailsPage(movieId, itsLibraryFilm) {
   sectionHomePage.classList.add('main__hide');
   sectionLibraryPage.classList.add('main__hide');
   sectionDetailsPage.classList.remove('main__hide');
-  selectFilm = renderFilms.find(el => el.id === movieId);
+  if (itsLibraryFilm) {
+    let queueAndWatchedFilmListFromLS = [...JSON.parse(localStorage.getItem('filmsQueue')), ...JSON.parse(localStorage.getItem('filmsWatched'))];
+    selectFilm = queueAndWatchedFilmListFromLS.find(el => el.id === movieId);
+  } else {
+    selectFilm = renderFilms.find(el => el.id === movieId);
+  }
   showDetails(selectFilm);
 
   queueListButton.removeEventListener('click', drawQueueFilmList);
