@@ -50,11 +50,6 @@ function createCardFunc(imgPath, filmTitle, movieId) {
   return listItem;
 };
 
-// (async function startApp() {
-// await fetchPopularMoviesList();
-// await fetchGenres();
-// })();
-
 fetchPopularMoviesList();
 fetchGenres();
 
