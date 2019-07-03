@@ -1,64 +1,48 @@
-const addQueueButton = document.querySelector('#js-addQueueButton');
-const addWatchedButton = document.querySelector('#js-addWatchedButton');
+let libraryFilmList = document.querySelector('#js-libraryFilmList');
 
-function toggleToQueue() {
-  let filmsQueueArr = [];
-  let localStorageData = localStorage.getItem('filmsQueue');
-  if (localStorageData !== null) {
-    filmsQueueArr.push(...JSON.parse(localStorageData));
+function createLibraryCardFunc(imgPath, filmTitle, movieId, voteAverage) {
+  const listItem = document.createElement('li');
+  listItem.classList.add('main__filmListItem');
+  listItem.setAttribute('id', 'js-filmListItem');
+
+  const img = document.createElement('img');
+  img.classList.add('main__filmListItemImg');
+  img.setAttribute('src', `https://image.tmdb.org/t/p/w500/${imgPath}`)
+
+  const title = document.createElement('h2');
+  title.classList.add('main__filmListItemTitle');
+  title.textContent = filmTitle;
+
+  const voteAverageH3 = document.createElement('h3');
+  voteAverageH3.classList.add('main__filmVote');
+  voteAverageH3.textContent = voteAverage;
+
+  listItem.append(img, title, voteAverageH3);
+
+  listItem.addEventListener('click', () => activeDetailsPage(movieId));
+  return listItem;
+};
+
+function drawQueueFilmList() {
+  let fragment = document.createDocumentFragment();
+  let queueFilmListFromLS = localStorage.getItem('filmsQueue');
+  if (queueFilmListFromLS !== null) {
+    JSON.parse(queueFilmListFromLS).forEach(movie => {
+      fragment.append(createLibraryCardFunc(movie.backdrop_path, movie.title, movie.id, movie.vote_average))
+    })
+    libraryFilmList.innerHTML = "";
+    libraryFilmList.append(fragment);
   }
-  filmsQueueArr.push(selectFilm);
-  localStorage.setItem('filmsQueue', JSON.stringify(filmsQueueArr));
-  monitorButtonStatusText();
-};
+}
 
-function toggleToWatched() {
-  let filmsWatchedArr = [];
-  let localStorageData = localStorage.getItem('filmsWatched');
-  if (localStorageData !== null) {
-    filmsWatchedArr.push(...JSON.parse(localStorageData));
+function drawWatchedFilmList() {
+  let fragment = document.createDocumentFragment();
+  let watchedFilmListFromLS = localStorage.getItem('filmsWatched');
+  if (watchedFilmListFromLS !== null) {
+    JSON.parse(watchedFilmListFromLS).forEach(movie => {
+      fragment.append(createLibraryCardFunc(movie.backdrop_path, movie.title, movie.id, movie.vote_average))
+    });
+    libraryFilmList.innerHTML = "";
+    libraryFilmList.append(fragment);
   }
-  filmsWatchedArr.push(selectFilm);
-  localStorage.setItem('filmsWatched', JSON.stringify(filmsWatchedArr));
-  monitorButtonStatusText();
-};
-
-function showDetails(selectFilm) {
-  let img = document.querySelector('#js-detailsImg');
-  img.setAttribute('src', `https://image.tmdb.org/t/p/w500/${selectFilm.poster_path}`)
-
-  let title = document.querySelector('#js-detailsTitle');
-  title.textContent = selectFilm.title;
-
-  let tdVote = document.querySelector('#js-vote');
-  tdVote.textContent = selectFilm.vote_average;
-
-  let tdPopularity = document.querySelector('#js-popularity');
-  tdPopularity.textContent = selectFilm.popularity;
-
-  let tdOriginalTitle = document.querySelector('#js-originalTitle');
-  tdOriginalTitle.textContent = selectFilm.original_title;
-
-  let tdGenre = document.querySelector('#js-genre');
-  tdGenre.textContent = String(genres.filter(el => selectFilm.genre_ids.find(item => el.id === item) ? true : false).reduce((acc, item) => acc + `${item.name}, `, '')).slice(0, -2);
-
-  let detailsAboutText = document.querySelector('#js-detailsAboutText');
-  detailsAboutText.textContent = selectFilm.overview;
-
-  monitorButtonStatusText();
-
-  addQueueButton.addEventListener('click', toggleToQueue);
-  addWatchedButton.addEventListener('click', toggleToWatched);
-};
-
-function monitorButtonStatusText() {
-  console.log('monitorButtonStatusText work');
-
-  let localStorageFilmsQueue = localStorage.getItem('filmsQueue');
-  console.log('localStorageFilmsQueue :', localStorageFilmsQueue);
-  localStorageFilmsQueue === null ? addQueueButton.textContent = "Add to queue" : localStorageFilmsQueue.find(el => el.id === selectFilm.id) ? addQueueButton.textContent = "Delete from queue" : addQueueButton.textContent = "Add to queue";
-
-  let localStorageFilmsWatched = localStorage.getItem('filmsWatched');
-  console.log('localStorageFilmsQueue :', localStorageFilmsWatched);
-  localStorageFilmsWatched === null ? addWatchedButton.textContent = "Add to queue" : localStorageFilmsQueue.find(el => el.id === selectFilm.id) ? addWatchedButton.textContent = "Delete from queue" : addWatchedButton.textContent = "Add to queue";
 }

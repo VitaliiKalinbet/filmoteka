@@ -46,7 +46,6 @@ function createCardFunc(imgPath, filmTitle, movieId) {
 
   listItem.append(img, title);
 
-  // вешаю слушателя для переключения страниц функция activeDetailsPage в файле navigation.js
   listItem.addEventListener('click', () => activeDetailsPage(movieId));
   return listItem;
 };
@@ -80,6 +79,7 @@ function fetchFilms() {
 }
 
 function serchFilm(event) {
+  if (searchFilmInput.value = "") return;
   event.preventDefault();
   inputValue = searchFilmInput.value;
   searchFilmForm.reset();

@@ -61,7 +61,6 @@
   margin: 0 1rem;
 }
 
-
 // классы для созданнных javascript дом-узлов
 
 .main__filmListItem {
@@ -76,6 +75,11 @@
 .main__filmListItemImg {
   width: 480px;
   height: 250px;
+  opacity: 0.95;
+  -moz-opacity: 0.95;
+  filter: alpha(opacity=95) black;
+  -khtml-opacity: 0.95;
+  background-color: #000;
 }
 
 .main__filmListItemTitle {
