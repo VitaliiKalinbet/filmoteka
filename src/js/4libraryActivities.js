@@ -32,6 +32,12 @@ function drawQueueFilmList() {
     })
     libraryFilmList.innerHTML = "";
     libraryFilmList.append(fragment);
+  } else if (queueFilmListFromLS === null || JSON.parse(queueFilmListFromLS).length === 0) {
+    libraryFilmList.innerHTML = "";
+    const listItem = document.createElement('li');
+    listItem.classList.add('main__noFilmsInList');
+    listItem.textContent = "You do not have to queue movies to watch. Add them."
+    libraryFilmList.append(listItem);
   }
   queueListButton.classList.add('main__navigationLibraryButtonActive');
   watchedListButton.classList.remove('main__navigationLibraryButtonActive');
@@ -46,6 +52,12 @@ function drawWatchedFilmList() {
     });
     libraryFilmList.innerHTML = "";
     libraryFilmList.append(fragment);
+  } else if (watchedFilmListFromLS === null || JSON.parse(watchedFilmListFromLS).length === 1) {
+    libraryFilmList.innerHTML = "";
+    const listItem = document.createElement('li');
+    listItem.classList.add('main__noFilmsInList');
+    listItem.textContent = "You do not have watched movies. Add them."
+    libraryFilmList.append(listItem);
   }
   queueListButton.classList.remove('main__navigationLibraryButtonActive');
   watchedListButton.classList.add('main__navigationLibraryButtonActive');

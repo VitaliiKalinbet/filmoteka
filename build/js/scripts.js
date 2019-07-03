@@ -59,11 +59,7 @@ function createCardFunc(imgPath, filmTitle, movieId) {
   return listItem;
 }
 
-; // (async function startApp() {
-// await fetchPopularMoviesList();
-// await fetchGenres();
-// })();
-
+;
 fetchPopularMoviesList();
 fetchGenres();
 var searchFilmForm = document.querySelector('#js-form');
@@ -338,6 +334,12 @@ function drawQueueFilmList() {
     });
     libraryFilmList.innerHTML = "";
     libraryFilmList.append(fragment);
+  } else if (queueFilmListFromLS === null || JSON.parse(queueFilmListFromLS).length === 0) {
+    libraryFilmList.innerHTML = "";
+    var listItem = document.createElement('li');
+    listItem.classList.add('main__noFilmsInList');
+    listItem.textContent = "You do not have to queue movies to watch. Add them.";
+    libraryFilmList.append(listItem);
   }
 
   queueListButton.classList.add('main__navigationLibraryButtonActive');
@@ -354,6 +356,12 @@ function drawWatchedFilmList() {
     });
     libraryFilmList.innerHTML = "";
     libraryFilmList.append(fragment);
+  } else if (watchedFilmListFromLS === null || JSON.parse(watchedFilmListFromLS).length === 1) {
+    libraryFilmList.innerHTML = "";
+    var listItem = document.createElement('li');
+    listItem.classList.add('main__noFilmsInList');
+    listItem.textContent = "You do not have watched movies. Add them.";
+    libraryFilmList.append(listItem);
   }
 
   queueListButton.classList.remove('main__navigationLibraryButtonActive');
