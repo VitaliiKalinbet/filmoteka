@@ -1,59 +1,3 @@
-'use strict'
-
-let moviesList = document.querySelector('#js-moviesList');
-let pError = document.querySelector('#js-error');
-let renderFilms = [];
-let inputValue = "";
-let pageNumber = 1;
-let genres;
-
-const fetchPopularMoviesList = () => {
-  fetch(`https://api.themoviedb.org/3/movie/popular?api_key=4aa539255aa0c2506cf45806a15a8a0a&language=en-US&page=${pageNumber}`)
-    .then(data => data.json())
-    .then(res => {
-      if (res.results.length > 1) {
-        moviesList.innerHTML = "";
-      }
-      res.results.forEach(movie => {
-        moviesList.insertAdjacentElement('beforeend', createCardFunc(movie.backdrop_path, movie.title, movie.id))
-      })
-      renderFilms = res.results;
-      return renderFilms;
-    })
-    .catch(err => console.log(err));
-}
-
-function fetchGenres() {
-  fetch('https://api.themoviedb.org/3/genre/movie/list?api_key=4aa539255aa0c2506cf45806a15a8a0a&language=en-US')
-    .then(data => data.json())
-    .then(res => {
-      genres = [...res.genres];
-    })
-    .catch(err => console.log(err));
-}
-
-function createCardFunc(imgPath, filmTitle, movieId) {
-  const listItem = document.createElement('li');
-  listItem.classList.add('main__filmListItem');
-  listItem.setAttribute('id', 'js-filmListItem');
-
-  const img = document.createElement('img');
-  img.classList.add('main__filmListItemImg');
-  img.setAttribute('src', `https://image.tmdb.org/t/p/w500/${imgPath}`)
-
-  const title = document.createElement('h2');
-  title.classList.add('main__filmListItemTitle');
-  title.textContent = filmTitle;
-
-  listItem.append(img, title);
-
-  listItem.addEventListener('click', () => activeDetailsPage(movieId, false));
-  return listItem;
-};
-
-fetchPopularMoviesList();
-fetchGenres();
-
 const searchFilmForm = document.querySelector('#js-form');
 const searchFilmInput = document.querySelector('#js-input');
 const backButton = document.querySelector('#js-backButton');
@@ -90,9 +34,9 @@ function serchFilm(event) {
 
 searchFilmForm.addEventListener('submit', serchFilm);
 
-function plaginationNavigation(button) {
+function plaginationNavigation(e) {
   pageNumber === 1 || pageNumber < 1 ? backButton.classList.add('main__hide') : backButton.classList.remove('main__hide');
-  if (button === "backButton") {
+  if (e.target.id === "js-backButton") {
     pageNumber = pageNumber - 1;
     plaginationPageNumber.textContent = pageNumber;
     if (inputValue === '') {
@@ -112,5 +56,5 @@ function plaginationNavigation(button) {
   pageNumber === 1 || pageNumber < 1 ? backButton.classList.add('main__hide') : backButton.classList.remove('main__hide');
 }
 
-backButton.addEventListener('click', () => plaginationNavigation("backButton"));
-nextButton.addEventListener('click', () => plaginationNavigation("nextButton"));
+backButton.addEventListener('click', plaginationNavigation);
+nextButton.addEventListener('click', plaginationNavigation);

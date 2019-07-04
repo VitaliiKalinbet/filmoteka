@@ -15,6 +15,9 @@ function activeHomePage() {
   sectionDetailsPage.classList.add('main__hide');
   sectionHomePage.classList.remove('main__hide');
 
+  backButton.addEventListener('click', plaginationNavigation);
+  nextButton.addEventListener('click', plaginationNavigation);
+
   addQueueButton.removeEventListener('click', toggleToQueue);
   addWatchedButton.removeEventListener('click', toggleToWatched);
 
@@ -35,12 +38,16 @@ function activeLibraryPage() {
 
   addQueueButton.removeEventListener('click', toggleToQueue);
   addWatchedButton.removeEventListener('click', toggleToWatched);
+
+  backButton.removeEventListener('click', plaginationNavigation);
+  nextButton.removeEventListener('click', plaginationNavigation);
 }
 
 function activeDetailsPage(movieId, itsLibraryFilm) {
   sectionHomePage.classList.add('main__hide');
   sectionLibraryPage.classList.add('main__hide');
   sectionDetailsPage.classList.remove('main__hide');
+
   if (itsLibraryFilm) {
     let queueAndWatchedFilmListFromLS = [...JSON.parse(localStorage.getItem('filmsQueue')), ...JSON.parse(localStorage.getItem('filmsWatched'))];
     selectFilm = queueAndWatchedFilmListFromLS.find(el => el.id === movieId);
@@ -51,6 +58,9 @@ function activeDetailsPage(movieId, itsLibraryFilm) {
 
   queueListButton.removeEventListener('click', drawQueueFilmList);
   watchedListButton.removeEventListener('click', drawWatchedFilmList);
+
+  backButton.removeEventListener('click', plaginationNavigation);
+  nextButton.removeEventListener('click', plaginationNavigation);
 };
 
 linkHomePage.addEventListener('click', activeHomePage);

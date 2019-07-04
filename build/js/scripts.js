@@ -15,6 +15,25 @@ var inputValue = "";
 var pageNumber = 1;
 var genres;
 
+function createCardFunc(imgPath, filmTitle, movieId) {
+  var listItem = document.createElement('li');
+  listItem.classList.add('main__filmListItem');
+  listItem.setAttribute('id', 'js-filmListItem');
+  var img = document.createElement('img');
+  img.classList.add('main__filmListItemImg');
+  img.setAttribute('src', "https://image.tmdb.org/t/p/w500/".concat(imgPath));
+  var title = document.createElement('h2');
+  title.classList.add('main__filmListItemTitle');
+  title.textContent = filmTitle;
+  listItem.append(img, title);
+  listItem.addEventListener('click', function () {
+    return activeDetailsPage(movieId, false);
+  });
+  return listItem;
+}
+
+;
+
 var fetchPopularMoviesList = function fetchPopularMoviesList() {
   fetch("https://api.themoviedb.org/3/movie/popular?api_key=4aa539255aa0c2506cf45806a15a8a0a&language=en-US&page=".concat(pageNumber)).then(function (data) {
     return data.json();
@@ -43,26 +62,10 @@ function fetchGenres() {
   });
 }
 
-function createCardFunc(imgPath, filmTitle, movieId) {
-  var listItem = document.createElement('li');
-  listItem.classList.add('main__filmListItem');
-  listItem.setAttribute('id', 'js-filmListItem');
-  var img = document.createElement('img');
-  img.classList.add('main__filmListItemImg');
-  img.setAttribute('src', "https://image.tmdb.org/t/p/w500/".concat(imgPath));
-  var title = document.createElement('h2');
-  title.classList.add('main__filmListItemTitle');
-  title.textContent = filmTitle;
-  listItem.append(img, title);
-  listItem.addEventListener('click', function () {
-    return activeDetailsPage(movieId, false);
-  });
-  return listItem;
-}
-
-;
 fetchPopularMoviesList();
 fetchGenres();
+"use strict";
+
 var searchFilmForm = document.querySelector('#js-form');
 var searchFilmInput = document.querySelector('#js-input');
 var backButton = document.querySelector('#js-backButton');
@@ -102,10 +105,10 @@ function serchFilm(event) {
 
 searchFilmForm.addEventListener('submit', serchFilm);
 
-function plaginationNavigation(button) {
+function plaginationNavigation(e) {
   pageNumber === 1 || pageNumber < 1 ? backButton.classList.add('main__hide') : backButton.classList.remove('main__hide');
 
-  if (button === "backButton") {
+  if (e.target.id === "js-backButton") {
     pageNumber = pageNumber - 1;
     plaginationPageNumber.textContent = pageNumber;
 
@@ -128,12 +131,8 @@ function plaginationNavigation(button) {
   pageNumber === 1 || pageNumber < 1 ? backButton.classList.add('main__hide') : backButton.classList.remove('main__hide');
 }
 
-backButton.addEventListener('click', function () {
-  return plaginationNavigation("backButton");
-});
-nextButton.addEventListener('click', function () {
-  return plaginationNavigation("nextButton");
-});
+backButton.addEventListener('click', plaginationNavigation);
+nextButton.addEventListener('click', plaginationNavigation);
 "use strict";
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
@@ -159,6 +158,8 @@ function activeHomePage() {
   sectionLibraryPage.classList.add('main__hide');
   sectionDetailsPage.classList.add('main__hide');
   sectionHomePage.classList.remove('main__hide');
+  backButton.addEventListener('click', plaginationNavigation);
+  nextButton.addEventListener('click', plaginationNavigation);
   addQueueButton.removeEventListener('click', toggleToQueue);
   addWatchedButton.removeEventListener('click', toggleToWatched);
   queueListButton.removeEventListener('click', drawQueueFilmList);
@@ -175,6 +176,8 @@ function activeLibraryPage() {
   watchedListButton.addEventListener('click', drawWatchedFilmList);
   addQueueButton.removeEventListener('click', toggleToQueue);
   addWatchedButton.removeEventListener('click', toggleToWatched);
+  backButton.removeEventListener('click', plaginationNavigation);
+  nextButton.removeEventListener('click', plaginationNavigation);
 }
 
 function activeDetailsPage(movieId, itsLibraryFilm) {
@@ -196,6 +199,8 @@ function activeDetailsPage(movieId, itsLibraryFilm) {
   showDetails(selectFilm);
   queueListButton.removeEventListener('click', drawQueueFilmList);
   watchedListButton.removeEventListener('click', drawWatchedFilmList);
+  backButton.removeEventListener('click', plaginationNavigation);
+  nextButton.removeEventListener('click', plaginationNavigation);
 }
 
 ;
