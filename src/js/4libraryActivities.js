@@ -26,7 +26,7 @@ function createLibraryCardFunc(imgPath, filmTitle, movieId, voteAverage) {
 function drawQueueFilmList() {
   let fragment = document.createDocumentFragment();
   let queueFilmListFromLS = localStorage.getItem('filmsQueue');
-  if (queueFilmListFromLS !== null) {
+  if (queueFilmListFromLS !== null && JSON.parse(queueFilmListFromLS).length !== 0) {
     JSON.parse(queueFilmListFromLS).forEach(movie => {
       fragment.append(createLibraryCardFunc(movie.backdrop_path, movie.title, movie.id, movie.vote_average))
     })
@@ -46,13 +46,13 @@ function drawQueueFilmList() {
 function drawWatchedFilmList() {
   let fragment = document.createDocumentFragment();
   let watchedFilmListFromLS = localStorage.getItem('filmsWatched');
-  if (watchedFilmListFromLS !== null) {
+  if (watchedFilmListFromLS !== null && JSON.parse(watchedFilmListFromLS).length !== 0) {
     JSON.parse(watchedFilmListFromLS).forEach(movie => {
       fragment.append(createLibraryCardFunc(movie.backdrop_path, movie.title, movie.id, movie.vote_average))
     });
     libraryFilmList.innerHTML = "";
     libraryFilmList.append(fragment);
-  } else if (watchedFilmListFromLS === null || JSON.parse(watchedFilmListFromLS).length === 1) {
+  } else if (watchedFilmListFromLS === null || JSON.parse(watchedFilmListFromLS).length === 0) {
     libraryFilmList.innerHTML = "";
     const listItem = document.createElement('li');
     listItem.classList.add('main__noFilmsInList');

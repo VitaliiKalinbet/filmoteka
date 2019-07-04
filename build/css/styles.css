@@ -521,6 +521,13 @@ template {
   margin: 0 1rem;
 }
 
+.main__error {
+  text-align: center;
+  color: red;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
 .main__filmListItem {
   position: relative;
   margin-bottom: 15px;

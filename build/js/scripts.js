@@ -9,10 +9,11 @@ function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
 
 var moviesList = document.querySelector('#js-moviesList');
+var pError = document.querySelector('#js-error');
 var renderFilms = [];
 var inputValue = "";
 var pageNumber = 1;
-var genres;
+var genres; // let error = '';
 
 var fetchPopularMoviesList = function fetchPopularMoviesList() {
   fetch("https://api.themoviedb.org/3/movie/popular?api_key=4aa539255aa0c2506cf45806a15a8a0a&language=en-US&page=".concat(pageNumber)).then(function (data) {
@@ -73,8 +74,15 @@ function fetchFilms() {
   fetch("https://api.themoviedb.org/3/search/movie?api_key=4aa539255aa0c2506cf45806a15a8a0a&language=en-US&page=".concat(pageNumber, "&include_adult=false&query=").concat(inputValue)).then(function (data) {
     return data.json();
   }).then(function (res) {
+    console.log('fetchFilms res :', res);
+
+    if (res.results.length === 0) {
+      pError.textContent = "Search result not successful. Enter the correct movie name and try again.";
+    }
+
     if (res.results.length > 1) {
       moviesList.innerHTML = "";
+      pError.textContent = "";
     }
 
     res.results.forEach(function (movie) {
@@ -328,7 +336,7 @@ function drawQueueFilmList() {
   var fragment = document.createDocumentFragment();
   var queueFilmListFromLS = localStorage.getItem('filmsQueue');
 
-  if (queueFilmListFromLS !== null) {
+  if (queueFilmListFromLS !== null && JSON.parse(queueFilmListFromLS).length !== 0) {
     JSON.parse(queueFilmListFromLS).forEach(function (movie) {
       fragment.append(createLibraryCardFunc(movie.backdrop_path, movie.title, movie.id, movie.vote_average));
     });
@@ -350,13 +358,13 @@ function drawWatchedFilmList() {
   var fragment = document.createDocumentFragment();
   var watchedFilmListFromLS = localStorage.getItem('filmsWatched');
 
-  if (watchedFilmListFromLS !== null) {
+  if (watchedFilmListFromLS !== null && JSON.parse(watchedFilmListFromLS).length !== 0) {
     JSON.parse(watchedFilmListFromLS).forEach(function (movie) {
       fragment.append(createLibraryCardFunc(movie.backdrop_path, movie.title, movie.id, movie.vote_average));
     });
     libraryFilmList.innerHTML = "";
     libraryFilmList.append(fragment);
-  } else if (watchedFilmListFromLS === null || JSON.parse(watchedFilmListFromLS).length === 1) {
+  } else if (watchedFilmListFromLS === null || JSON.parse(watchedFilmListFromLS).length === 0) {
     libraryFilmList.innerHTML = "";
     var listItem = document.createElement('li');
     listItem.classList.add('main__noFilmsInList');
