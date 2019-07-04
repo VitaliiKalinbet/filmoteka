@@ -6,7 +6,6 @@ let renderFilms = [];
 let inputValue = "";
 let pageNumber = 1;
 let genres;
-// let error = '';
 
 const fetchPopularMoviesList = () => {
   fetch(`https://api.themoviedb.org/3/movie/popular?api_key=4aa539255aa0c2506cf45806a15a8a0a&language=en-US&page=${pageNumber}`)
@@ -66,7 +65,6 @@ function fetchFilms() {
   fetch(`https://api.themoviedb.org/3/search/movie?api_key=4aa539255aa0c2506cf45806a15a8a0a&language=en-US&page=${pageNumber}&include_adult=false&query=${inputValue}`)
     .then(data => data.json())
     .then(res => {
-      console.log('fetchFilms res :', res);
       if (res.results.length === 0) {
         pError.textContent = "Search result not successful. Enter the correct movie name and try again.";
       }

@@ -13,7 +13,7 @@ var pError = document.querySelector('#js-error');
 var renderFilms = [];
 var inputValue = "";
 var pageNumber = 1;
-var genres; // let error = '';
+var genres;
 
 var fetchPopularMoviesList = function fetchPopularMoviesList() {
   fetch("https://api.themoviedb.org/3/movie/popular?api_key=4aa539255aa0c2506cf45806a15a8a0a&language=en-US&page=".concat(pageNumber)).then(function (data) {
@@ -74,8 +74,6 @@ function fetchFilms() {
   fetch("https://api.themoviedb.org/3/search/movie?api_key=4aa539255aa0c2506cf45806a15a8a0a&language=en-US&page=".concat(pageNumber, "&include_adult=false&query=").concat(inputValue)).then(function (data) {
     return data.json();
   }).then(function (res) {
-    console.log('fetchFilms res :', res);
-
     if (res.results.length === 0) {
       pError.textContent = "Search result not successful. Enter the correct movie name and try again.";
     }
