@@ -4,6 +4,9 @@ const backButton = document.querySelector('#js-backButton');
 backButton.classList.add('main__hide');
 const nextButton = document.querySelector('#js-nextButton');
 let plaginationPageNumber = document.querySelector('#js-plaginationPageNumber');
+let pError = document.querySelector('#js-error');
+let inputValue = "";
+let pageNumber = 1;
 
 function fetchFilms() {
   fetch(`https://api.themoviedb.org/3/search/movie?api_key=4aa539255aa0c2506cf45806a15a8a0a&language=en-US&page=${pageNumber}&include_adult=false&query=${inputValue}`)

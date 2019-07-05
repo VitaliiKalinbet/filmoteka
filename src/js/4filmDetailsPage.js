@@ -1,6 +1,3 @@
-const addQueueButton = document.querySelector('#js-addQueueButton');
-const addWatchedButton = document.querySelector('#js-addWatchedButton');
-
 function toggleToQueue() {
   let filmsQueueArr = [];
   let localStorageData = localStorage.getItem('filmsQueue');
@@ -54,9 +51,6 @@ function showDetails(selectFilm) {
   detailsAboutText.textContent = selectFilm.overview;
 
   monitorButtonStatusText();
-
-  addQueueButton.addEventListener('click', toggleToQueue);
-  addWatchedButton.addEventListener('click', toggleToWatched);
 };
 
 function monitorButtonStatusText() {

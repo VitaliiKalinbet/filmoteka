@@ -1,10 +1,7 @@
 'use strict'
 
 let moviesList = document.querySelector('#js-moviesList');
-let pError = document.querySelector('#js-error');
 let renderFilms = [];
-let inputValue = "";
-let pageNumber = 1;
 let genres;
 
 function createCardFunc(imgPath, filmTitle, movieId) {

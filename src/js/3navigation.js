@@ -3,9 +3,11 @@ const linkLibraryPage = document.querySelector('#js-linkLibraryPage');
 const sectionHomePage = document.querySelector('#js-homePage');
 const sectionLibraryPage = document.querySelector('#js-libraryPage');
 const sectionDetailsPage = document.querySelector('#js-detailsPage');
-let selectFilm = {};
 const queueListButton = document.querySelector('#js-navigationLibraryButtonQueue');
 const watchedListButton = document.querySelector('#js-navigationLibraryButtonWatched');
+const addQueueButton = document.querySelector('#js-addQueueButton');
+const addWatchedButton = document.querySelector('#js-addWatchedButton');
+let selectFilm = {};
 
 sectionLibraryPage.classList.add('main__hide');
 sectionDetailsPage.classList.add('main__hide');
@@ -55,6 +57,9 @@ function activeDetailsPage(movieId, itsLibraryFilm) {
     selectFilm = renderFilms.find(el => el.id === movieId);
   }
   showDetails(selectFilm);
+
+  addQueueButton.addEventListener('click', toggleToQueue);
+  addWatchedButton.addEventListener('click', toggleToWatched);
 
   queueListButton.removeEventListener('click', drawQueueFilmList);
   watchedListButton.removeEventListener('click', drawWatchedFilmList);

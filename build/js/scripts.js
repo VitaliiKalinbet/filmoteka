@@ -9,10 +9,7 @@ function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
 
 var moviesList = document.querySelector('#js-moviesList');
-var pError = document.querySelector('#js-error');
 var renderFilms = [];
-var inputValue = "";
-var pageNumber = 1;
 var genres;
 
 function createCardFunc(imgPath, filmTitle, movieId) {
@@ -72,6 +69,9 @@ var backButton = document.querySelector('#js-backButton');
 backButton.classList.add('main__hide');
 var nextButton = document.querySelector('#js-nextButton');
 var plaginationPageNumber = document.querySelector('#js-plaginationPageNumber');
+var pError = document.querySelector('#js-error');
+var inputValue = "";
+var pageNumber = 1;
 
 function fetchFilms() {
   fetch("https://api.themoviedb.org/3/search/movie?api_key=4aa539255aa0c2506cf45806a15a8a0a&language=en-US&page=".concat(pageNumber, "&include_adult=false&query=").concat(inputValue)).then(function (data) {
@@ -148,9 +148,11 @@ var linkLibraryPage = document.querySelector('#js-linkLibraryPage');
 var sectionHomePage = document.querySelector('#js-homePage');
 var sectionLibraryPage = document.querySelector('#js-libraryPage');
 var sectionDetailsPage = document.querySelector('#js-detailsPage');
-var selectFilm = {};
 var queueListButton = document.querySelector('#js-navigationLibraryButtonQueue');
 var watchedListButton = document.querySelector('#js-navigationLibraryButtonWatched');
+var addQueueButton = document.querySelector('#js-addQueueButton');
+var addWatchedButton = document.querySelector('#js-addWatchedButton');
+var selectFilm = {};
 sectionLibraryPage.classList.add('main__hide');
 sectionDetailsPage.classList.add('main__hide');
 
@@ -197,6 +199,8 @@ function activeDetailsPage(movieId, itsLibraryFilm) {
   }
 
   showDetails(selectFilm);
+  addQueueButton.addEventListener('click', toggleToQueue);
+  addWatchedButton.addEventListener('click', toggleToWatched);
   queueListButton.removeEventListener('click', drawQueueFilmList);
   watchedListButton.removeEventListener('click', drawWatchedFilmList);
   backButton.removeEventListener('click', plaginationNavigation);
@@ -215,9 +219,6 @@ function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread n
 function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
 
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
-
-var addQueueButton = document.querySelector('#js-addQueueButton');
-var addWatchedButton = document.querySelector('#js-addWatchedButton');
 
 function toggleToQueue() {
   var filmsQueueArr = [];
@@ -293,8 +294,6 @@ function showDetails(selectFilm) {
   var detailsAboutText = document.querySelector('#js-detailsAboutText');
   detailsAboutText.textContent = selectFilm.overview;
   monitorButtonStatusText();
-  addQueueButton.addEventListener('click', toggleToQueue);
-  addWatchedButton.addEventListener('click', toggleToWatched);
 }
 
 ;
