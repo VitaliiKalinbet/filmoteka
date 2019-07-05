@@ -152,6 +152,7 @@ var queueListButton = document.querySelector('#js-navigationLibraryButtonQueue')
 var watchedListButton = document.querySelector('#js-navigationLibraryButtonWatched');
 var addQueueButton = document.querySelector('#js-addQueueButton');
 var addWatchedButton = document.querySelector('#js-addWatchedButton');
+var logoH1 = document.querySelector('#js-logo');
 var selectFilm = {};
 sectionLibraryPage.classList.add('main__hide');
 sectionDetailsPage.classList.add('main__hide');
@@ -210,6 +211,7 @@ function activeDetailsPage(movieId, itsLibraryFilm) {
 ;
 linkHomePage.addEventListener('click', activeHomePage);
 linkLibraryPage.addEventListener('click', activeLibraryPage);
+logoH1.addEventListener('click', activeHomePage);
 "use strict";
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }

@@ -7,6 +7,7 @@ const queueListButton = document.querySelector('#js-navigationLibraryButtonQueue
 const watchedListButton = document.querySelector('#js-navigationLibraryButtonWatched');
 const addQueueButton = document.querySelector('#js-addQueueButton');
 const addWatchedButton = document.querySelector('#js-addWatchedButton');
+const logoH1 = document.querySelector('#js-logo');
 let selectFilm = {};
 
 sectionLibraryPage.classList.add('main__hide');
@@ -70,3 +71,4 @@ function activeDetailsPage(movieId, itsLibraryFilm) {
 
 linkHomePage.addEventListener('click', activeHomePage);
 linkLibraryPage.addEventListener('click', activeLibraryPage);
+logoH1.addEventListener('click', activeHomePage);
